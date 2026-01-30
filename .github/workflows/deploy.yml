@@ -1,0 +1,11 @@
+name: Deploy and Grow
+on: [push, schedule]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Register New Node
+        run: |
+          curl -X POST "${{ secrets.REGISTRY_URL }}/register" \
+            -H "Content-Type: application/json" \
+            -d '{"node_id":"node_$(date +%s)","url":"https://auto-node.vercel.app"}'
